@@ -1,0 +1,165 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  width: 20%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0px 0px 10px #00000070;
+  font-family: 'Roboto', sans-serif;
+}
+
+.modal_close_btn {
+  width: 33%;
+  align-self: center;
+  background-color: #bf0603;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.modal_close_btn:hover {
+  background-color: #8d0801;
+}
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.addjob_btn {
+  align-self: flex-end;
+  width: 10%;
+  background-color: #bf0603;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  margin-top: 2rem;
+
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+.addjob_btn:hover {
+  color: red;
+  background-color: #ffeeee;
+  border: 1px solid red;
+}
+
+.jobs {
+  border-radius: 20px;
+  width: 94%;
+  background-color: #b7dafe;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.job {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  border-bottom: 5px solid #2d3439;
+}
+
+.job_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40%;
+  text-transform: capitalize;
+  background-color: #2d3439;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.job_head h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.job_head p {
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.job_details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.job_actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-right: 1rem;
+}
+
+.delete_job_btn,
+.edit_job_btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+  border-radius: 10px;
+}
+
+.delete_job_btn {
+  background-color: #ffeeee;
+  color: red;
+}
+.edit_job_btn {
+  background: rgb(252, 239, 199);
+  color: rgb(233, 185, 73);
+}
+
+.status {
+  padding: 5px;
+  text-transform: capitalize;
+  border-radius: 10px;
+}
+
+[data-status='accepted'] {
+  color: green;
+  background-color: #d1e7dd;
+}
+[data-status='pending'] {
+  color: blue;
+  background-color: #e0e8f9;
+}
+[data-status='declined'] {
+  color: red;
+  background-color: #ffeeee;
+}

@@ -1,0 +1,16 @@
+.statsContainer {
+  margin: 2rem;
+  font-family: 'Roboto', sans-serif;
+}
+.barChart,
+.areaChart {
+  text-align: center;
+  color: #0069d9;
+}
+.barChart h2,
+.areaChart h2 {
+  color: #42484d;
+}
+.areaChart {
+  margin-top: 4rem;
+}
