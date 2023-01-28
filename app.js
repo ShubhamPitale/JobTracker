@@ -43,7 +43,8 @@ app.use(xss());
 // });
 
 //app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use(express.static(path.join(__dirname, './client/build')));
+
+app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(express.json());
 
 // routes
@@ -51,12 +52,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authUser, jobRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, './client/build/index.html'),
-    function (err) {
-      res.status(500).send(err);
-    }
-  );
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 app.use(notFoundMiddleware);
