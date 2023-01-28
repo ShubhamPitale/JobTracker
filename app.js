@@ -10,12 +10,6 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
-// swagger
-
-const swaggerUI = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
-
 //connect DB
 const connectDB = require('./db/connect');
 
@@ -49,7 +43,7 @@ app.get('/', (req, res) => {
 });
 
 //app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use(express.static(path.resolve(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
 app.use(express.json());
 
 // routes
@@ -57,7 +51,12 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authUser, jobRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+  res.sendFile(
+    path.join(__dirname, './client/build/index.html'),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
 });
 
 app.use(notFoundMiddleware);
