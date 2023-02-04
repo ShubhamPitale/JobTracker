@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 .logo_container {
   display: flex;
   align-items: center;
@@ -13,16 +14,28 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  box-sizing: border-box;
+  padding: 5px 20px;
+
   background-color: #fff;
   background-color: #b7dafe;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  width: 100%;
 }
 .options {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 15%;
+}
+
+.burger_btn {
+  display: none;
+  background-color: transparent;
+  color: #0069d9;
+  border: none;
+  font-size: 1.5rem;
 }
 
 .logout {
@@ -34,6 +47,8 @@ nav {
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
 }
 
 .logout:hover {
@@ -51,4 +66,88 @@ nav {
 .statLink:hover,
 .jobLink:hover {
   border-bottom: 1px solid #0069d9;
+}
+
+li {
+  list-style-type: none;
+  font-size: 1rem;
+}
+
+/* //////////
+   MOBILE VIEW
+   //////////
+ */
+
+@media screen and (max-width: 786px) {
+  .options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    top: 5.5%;
+    left: 70%;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 20%;
+    padding: 10px;
+    border-radius: 5px;
+    animation: ease-in-out-animation 300ms;
+  }
+
+  @keyframes ease-in-out-animation {
+    0% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .burger_btn {
+    display: block;
+  }
+  .logo_container {
+    width: 40%;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    background-color: #b7dafe;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .logout {
+    color: #0069d9;
+    background-color: transparent;
+    padding: 0px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .logout:hover {
+    color: #0069d9;
+    background-color: #e0e8f9;
+    border: none;
+  }
+
+  .statLink,
+  .jobLink {
+    text-decoration: none;
+    color: #0069d9;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .options li {
+    padding: 5px 0;
+    text-align: left;
+    font-size: 1rem;
+    color: #0069d9;
+  }
 }

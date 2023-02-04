@@ -45,6 +45,7 @@ function CreateJobForm() {
           name="company"
           value={formData.company}
           onChange={handleChange}
+          required
         />
       </div>
       <div className={classes.input_container}>
@@ -54,6 +55,7 @@ function CreateJobForm() {
           name="position"
           value={formData.position}
           onChange={handleChange}
+          required
         />
       </div>
 

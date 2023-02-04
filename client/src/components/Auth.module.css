@@ -1,3 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  background-color: white;
+  padding: 2rem;
+  padding-top: 1rem;
+  border-radius: 5px;
+  width: 20%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0px 0px 10px #00000070;
+  font-family: 'Oswald', sans-serif;
+}
+
+.modal_close_btn {
+  font-size: 2rem;
+  align-self: flex-end;
+  background-color: transparent;
+  color: #bf0603;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.modal_close_btn:hover {
+  color: #8d0801;
+}
 .form_container {
   display: flex;
   flex-direction: column;
@@ -7,7 +48,7 @@
   background-image: url(../images/bcg.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
 
 .form {
@@ -15,7 +56,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 3.5rem 2rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px #ccc;
@@ -71,7 +112,8 @@
   font-size: 1.2rem;
   margin-top: 1rem;
   cursor: pointer;
-  width: 60%;
+  width: 30%;
+  font-family: 'Oswald', sans-serif;
 }
 
 .auth_submit_btn:hover {
@@ -89,17 +131,70 @@
   color: #0080ff;
   border: none;
   font-size: 1.2rem;
-  margin-left: 0.5rem;
   cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+}
+.auth_text {
+  font-size: 1.2rem;
 }
 
-.auth_toggle_btn {
-  text-decoration: underline;
-}
+/* //////////
+   MOBILE VIEW
+   //////////
+ */
 
-/* Responsive styles */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 786px) {
+  .modal {
+    width: 50%;
+  }
+
+  .modal_close_btn {
+    font-size: 1rem;
+  }
+  .form_container {
+    height: 100vh;
+    background-color: #e0e8f9;
+    background-image: none;
+  }
+
   .form {
+    width: 60%;
+    height: 65%;
+    padding: 1rem 2rem;
+  }
+
+  .logo {
+    width: 80%;
+  }
+
+  .auth_heading {
+    font-size: 1.5rem;
+  }
+
+  .input_container {
     width: 90%;
+  }
+
+  .labels {
+    font-size: 1rem;
+  }
+
+  .auth_submit_btn {
+    background-color: #0080ff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    width: 50%;
+  }
+
+  .auth_toggle_btn {
+    font-size: 1rem;
+  }
+  .auth_text {
+    font-size: 1rem;
   }
 }

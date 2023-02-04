@@ -3,6 +3,7 @@ import { useState, useEffect, Fragment } from 'react';
 import AreaChartComponent from './AreaChart';
 import Navbar from './Navbar';
 import classes from './Stats.module.css';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 function Stats() {
   const [jobs, setJobs] = useState([]);
@@ -24,10 +25,9 @@ function Stats() {
     fetchData();
   }, []);
   return isLoading ? (
-    <Fragment>
-      <Navbar></Navbar>
-      <h1>loading</h1>
-    </Fragment>
+    <div className="centered">
+      <LoadingSpinner></LoadingSpinner>
+    </div>
   ) : (
     <Fragment>
       <Navbar></Navbar>

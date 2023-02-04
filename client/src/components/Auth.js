@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import classes from './Auth.module.css';
 import logo from '../images/logo.png';
+import ReactModal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 const initialState = {
   name: '',
   email: '',
@@ -12,7 +15,8 @@ const initialState = {
 
 function Auth() {
   const [values, setValues] = useState(initialState);
-  const [formAlert, setFormAlert] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const naviage = useNavigate();
 
   const handleChange = (e) => {
@@ -22,6 +26,11 @@ function Auth() {
     setValues({ ...values, [name]: value });
   };
 
+  const modalCloseHandler = () => {
+    setShowModal(false);
+    setErrorMsg('');
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
@@ -29,8 +38,6 @@ function Auth() {
       alert('Please fill out all fields');
       return;
     }
-
-    console.log(email, password);
 
     try {
       let url = values.isMember
@@ -42,15 +49,17 @@ function Auth() {
         email,
         password,
       });
-      console.log(data.user);
       //setFormAlert(data.msg);
 
       localStorage.setItem('token', data.token);
       naviage('/');
+      setErrorMsg('');
     } catch (error) {
       //setFormAlert(error.response.data.msg);
-      console.log('Error');
+      console.log(error);
       localStorage.removeItem('token');
+      setErrorMsg(error.response.data);
+      setShowModal(true);
     }
   };
 
@@ -58,7 +67,21 @@ function Auth() {
     setValues({ ...values, isMember: !values.isMember });
   };
 
-  return (
+  return errorMsg ? (
+    <ReactModal
+      isOpen={showModal}
+      onRequestClose={modalCloseHandler}
+      className={classes.modal}
+      overlayClassName={classes.overlay}
+      shouldCloseOnOverlayClick={true}
+      ariaHideApp={false}
+    >
+      <button onClick={modalCloseHandler} className={classes.modal_close_btn}>
+        <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
+      </button>
+      <p>{errorMsg}</p>
+    </ReactModal>
+  ) : (
     <div className={classes.form_container}>
       <form className={classes.form} onSubmit={onSubmit}>
         <div className={classes.logo_container}>
@@ -78,6 +101,7 @@ function Auth() {
               value={values.name}
               onChange={handleChange}
               className={classes.input_name}
+              autoComplete="off"
             />
           </div>
         )}
@@ -90,6 +114,7 @@ function Auth() {
             value={values.email}
             onChange={handleChange}
             className={classes.input_email}
+            autoComplete="off"
           />
         </div>
 
@@ -111,8 +136,8 @@ function Auth() {
         </button>
         <div className={classes.divider}></div>
 
-        <p>
-          {values.isMember ? 'Not a member yet?' : 'Already a member?'}
+        <p className={classes.auth_text}>
+          {values.isMember ? 'Not a member yet ?' : 'Already a member ?'}
           <button
             type="button"
             onClick={toggleMember}

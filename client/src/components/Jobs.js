@@ -3,12 +3,18 @@ import CreateJobForm from './CreateJobForm';
 import EditJobForm from './EditJobForm';
 import ReactModal from 'react-modal';
 import classes from './Jobs.module.css';
+import LoadingSpinner from '../UI/LoadingSpinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import nodata from '../images/nodata.png';
 
 function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [editingJob, setEditingJob] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editingJobModal, setEditingJobModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +28,7 @@ function Jobs() {
       const data = await response.json();
       console.log(data.jobs);
       setJobs(data.jobs);
+      setIsLoading(false);
     }
     fetchData();
   }, []);
@@ -69,7 +76,11 @@ function Jobs() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <div className="centered">
+      <LoadingSpinner></LoadingSpinner>
+    </div>
+  ) : (
     <Fragment>
       <div className={classes.main_container}>
         <button
@@ -79,40 +90,51 @@ function Jobs() {
         >
           Add Job
         </button>
+        {jobs.length == 0 ? (
+          <div className={classes.img_container}>
+            <img src={nodata}></img>
+          </div>
+        ) : (
+          <div className={classes.jobs}>
+            {jobs.map((job) => (
+              <div key={job._id} className={classes.job}>
+                <div className={classes.job_head}>
+                  <h2>{job.position}</h2>
+                  <p>{job.company}</p>
+                </div>
+                <div className={classes.job_details}>
+                  <p className={classes.status} data-status={job.status}>
+                    {job.status}
+                  </p>
+                  <p>
+                    <FontAwesomeIcon
+                      icon={faCalendarDays}
+                      className={classes.calIcon}
+                    ></FontAwesomeIcon>
+                    {job.updatedAt.substring(0, 10)}
+                  </p>
+                </div>
 
-        <div className={classes.jobs}>
-          {jobs.map((job) => (
-            <div key={job._id} className={classes.job}>
-              <div className={classes.job_head}>
-                <h2>{job.position}</h2>
-                <p>{job.company}</p>
+                <div className={classes.job_actions}>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(job._id)}
+                    className={classes.delete_job_btn}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleEdit(job)}
+                    className={classes.edit_job_btn}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
-              <div className={classes.job_details}>
-                <p className={classes.status} data-status={job.status}>
-                  {job.status}
-                </p>
-                <p>{job.updatedAt.substring(0, 10)}</p>
-              </div>
-
-              <div className={classes.job_actions}>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(job._id)}
-                  className={classes.delete_job_btn}
-                >
-                  Delete
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleEdit(job)}
-                  className={classes.edit_job_btn}
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <ReactModal
@@ -122,10 +144,10 @@ function Jobs() {
         overlayClassName={classes.overlay}
         shouldCloseOnOverlayClick={true}
       >
-        <CreateJobForm />
         <button onClick={handleAddJob} className={classes.modal_close_btn}>
-          Close
+          <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
         </button>
+        <CreateJobForm />
       </ReactModal>
       <ReactModal
         isOpen={editingJobModal}
@@ -134,10 +156,10 @@ function Jobs() {
         className={classes.modal}
         overlayClassName={classes.overlay}
       >
-        <EditJobForm job={editingJob} />
         <button onClick={handleEditModal} className={classes.modal_close_btn}>
-          Close
+          <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
         </button>
+        <EditJobForm job={editingJob} />
       </ReactModal>
     </Fragment>
   );
