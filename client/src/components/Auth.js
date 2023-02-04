@@ -88,9 +88,9 @@ function Auth() {
           <img src={logo} className={classes.logo} />
         </div>
 
-        <h3 className={classes.auth_heading}>
+        <h4 className={classes.auth_heading}>
           {values.isMember ? 'Login' : 'Register'}
-        </h3>
+        </h4>
         {/* name field */}
         {!values.isMember && (
           <div className={classes.input_container}>

@@ -27,7 +27,7 @@
 }
 
 .modal_close_btn {
-  font-size: 10px;
+  font-size: 1rem;
   align-self: flex-end;
   background-color: transparent;
   color: #bf0603;
